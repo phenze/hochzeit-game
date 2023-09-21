@@ -1,1 +1,1 @@
-# hochzeit-game
+# 2d infinite runner html5 game

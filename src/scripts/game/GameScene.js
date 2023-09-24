@@ -8,6 +8,8 @@ import { Platforms } from "./Platforms";
 
 export class GameScene extends Scene {
 
+
+
     create() {
         console.log('create GameScene')
         this.createBackground();
@@ -67,6 +69,9 @@ export class GameScene extends Scene {
         const platform = colliders.find(body => body.gamePlatform);
 
         if (hero && platform) {
+            if (!this.platfroms.movementStarted) {
+                this.platfroms.startMovement()
+            }
             this.hero.stayOnPlatform(platform.gamePlatform);
         }
 

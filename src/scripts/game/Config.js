@@ -23,7 +23,7 @@ export const Config = {
         }
     },
     platforms: {
-        moveSpeed: 0,
+        moveSpeed: -1.5,
         ranges: {
             rows: {
                 min: 2,
@@ -34,7 +34,7 @@ export const Config = {
                 max: 9
             },
             offset: {
-                min: 100,
+                min: 110,
                 max: 200
             }
         }

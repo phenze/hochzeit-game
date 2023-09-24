@@ -3,7 +3,11 @@ import { App } from "../system/App";
 import { Platform } from "./Platform";
 
 export class Platforms {
+
+    movementStarted = false;
+
     constructor() {
+
         this.platforms = [];
         this.container = new PIXI.Container();
 
@@ -30,9 +34,17 @@ export class Platforms {
 
     createPlatform(data, withDiamonds) {
         const platform = new Platform(data.rows, data.cols, data.x, withDiamonds);
+        if (this.movementStarted) {
+            platform.dx = App.config.platforms.moveSpeed;
+        }
         this.container.addChild(platform.container);
         this.platforms.push(platform);
         this.current = platform;
+    }
+
+    startMovement() {
+        this.platforms.forEach(platform => platform.dx = App.config.platforms.moveSpeed);
+        this.movementStarted = true
     }
 
     update() {

@@ -21,7 +21,7 @@ export class Platform {
         this.createContainer(x);
         this.createTiles();
 
-        this.dx = App.config.platforms.moveSpeed;
+        this.dx = 0;
         this.createBody();
         if (createDiamonds)
             this.createDiamonds();
@@ -32,7 +32,7 @@ export class Platform {
         const y = App.config.diamonds.offset.min + Math.random() * (App.config.diamonds.offset.max - App.config.diamonds.offset.min);
 
         for (let i = 0; i < this.cols; i++) {
-            if (Math.random() < App.config.diamonds.chance) {
+            if (Math.random() < App.config.diamonds.chance && this.diamonds.length === 0) {
                 this.createDiamond(this.tileSize * i, -y);
             }
         }

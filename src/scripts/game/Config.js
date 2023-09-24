@@ -34,13 +34,13 @@ export const Config = {
                 max: 9
             },
             offset: {
-                min: 60,
+                min: 100,
                 max: 200
             }
         }
     },
     hero: {
-        jumpSpeed: 15,
+        jumpSpeed: 10,
         maxJumps: 2,
         position: {
             x: 350,

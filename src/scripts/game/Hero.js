@@ -12,6 +12,9 @@ export class Hero {
         this.maxJumps = App.config.hero.maxJumps;
         this.jumpIndex = 0;
         this.score = 0;
+
+        this.speedLimit = 0;
+        this.accelRatio = 0.2;
     }
 
     collectDiamond(diamond) {
@@ -24,11 +27,36 @@ export class Hero {
     //[/12]
 
     startJump() {
-        if (this.platform || this.jumpIndex === 1) {
+        if (this.platform || this.jumpIndex === 0) {
             ++this.jumpIndex;
             this.platform = null;
-            Matter.Body.setVelocity(this.body, { x: 1, y: -this.dy });
+            this.jump()
+            // Matter.Body.setVelocity(this.body, { x: 0, y: -this.dy });
         }
+    }
+
+    jump(v = -1.0) {
+        const vy = this.body.velocity.y;
+        // if (Math.abs(vy) > 0.01) {
+        //     return;
+        // }
+
+        const finalV = v * 10;
+        Matter.Body.setVelocity(this.body, { x: this.body.velocity.x, y: finalV });
+    }
+
+    moveX(forward) {
+        if (forward) {
+            const x = this.body.velocity.x;
+            const finalX = (this.speedLimit - x) * this.accelRatio + x;
+            Matter.Body.setVelocity(this.body, { x: finalX, y: this.body.velocity.y });
+        } else {
+            const x = this.body.velocity.x;
+            const finalX = (-this.speedLimit - x) * this.accelRatio + x;
+            Matter.Body.setVelocity(this.body, { x: finalX, y: this.body.velocity.y });
+        }
+        // var movementAmount = 5
+        // Matter.Body.setVelocity(this.body, { x: forward ? movementAmount : -movementAmount, y: -0.1 });
     }
 
     // [08]
@@ -39,13 +67,19 @@ export class Hero {
     // [/08]
 
     createBody() {
-        this.body = Matter.Bodies.rectangle(this.sprite.x + this.sprite.width / 2, this.sprite.y + this.sprite.height / 2, this.sprite.width, this.sprite.height, { friction: 0 });
+        this.body = Matter.Bodies.rectangle(this.sprite.x + this.sprite.width / 2, this.sprite.y + this.sprite.height / 2, this.sprite.width, this.sprite.height);
+        this.body.friction = 0.08;
+        this.body.restitution = 0;
+        // var mass = 1000;
+        // this.body.mass = mass;
+        // this.body.inverseMass = 1 / mass;
+        // this.body.frictionAir = 0.05;
         Matter.World.add(App.physics.world, this.body);
         this.body.gameHero = this;
     }
 
     update() {
-        // console.log('ime here')
+        this.speedLimit = 15;
         this.sprite.x = this.body.position.x - this.sprite.width / 2;
         this.sprite.y = this.body.position.y - this.sprite.height / 2;
 
@@ -61,7 +95,6 @@ export class Hero {
             App.res("walk1"),
             App.res("walk2")
         ]);
-
         this.sprite.x = App.config.hero.position.x;
         this.sprite.y = App.config.hero.position.y;
         this.sprite.loop = true;
@@ -71,7 +104,7 @@ export class Hero {
 
     destroy() {
         App.app.ticker.remove(this.update, this);
-        Matter.World.add(App.physics.world, this.body);
+        Matter.World.remove(App.physics.world, this.body);
         this.sprite.destroy();
     }
 }

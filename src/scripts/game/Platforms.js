@@ -11,7 +11,7 @@ export class Platforms {
             rows: 4,
             cols: 6,
             x: 200
-        });
+        }, false);
     }
 
     get randomData() {
@@ -27,9 +27,9 @@ export class Platforms {
         return data;
     }
 
-    
-    createPlatform(data) {
-        const platform = new Platform(data.rows, data.cols, data.x);
+
+    createPlatform(data, withDiamonds) {
+        const platform = new Platform(data.rows, data.cols, data.x, withDiamonds);
         this.container.addChild(platform.container);
         this.platforms.push(platform);
         this.current = platform;
@@ -37,7 +37,7 @@ export class Platforms {
 
     update() {
         if (this.current.container.x + this.current.container.width < window.innerWidth) {
-            this.createPlatform(this.randomData);
+            this.createPlatform(this.randomData, true);
         }
 
         // 06

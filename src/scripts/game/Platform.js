@@ -6,7 +6,7 @@ import { Diamond } from './Diamond';
 // [/10]
 
 export class Platform {
-    constructor(rows, cols, x) {
+    constructor(rows, cols, x, createDiamonds) {
         // [10]
         this.diamonds = [];
         // [/10]
@@ -23,7 +23,8 @@ export class Platform {
 
         this.dx = App.config.platforms.moveSpeed;
         this.createBody();
-        this.createDiamonds();
+        if (createDiamonds)
+            this.createDiamonds();
     }
 
     // [10]
@@ -38,15 +39,15 @@ export class Platform {
     }
 
     createDiamond(x, y) {
-            const diamond = new Diamond(x, y);
-            this.container.addChild(diamond.sprite);
-            diamond.createBody();
-            this.diamonds.push(diamond);
+        const diamond = new Diamond(x, y);
+        this.container.addChild(diamond.sprite);
+        diamond.createBody();
+        this.diamonds.push(diamond);
     }
     // [/10]
 
     createBody() {
-        this.body = Matter.Bodies.rectangle(this.width / 2 + this.container.x, this.height / 2 + this.container.y, this.width, this.height, {friction: 0, isStatic: true});
+        this.body = Matter.Bodies.rectangle(this.width / 2 + this.container.x, this.height / 2 + this.container.y, this.width, this.height, { friction: 0, isStatic: true });
         Matter.World.add(App.physics.world, this.body);
         this.body.gamePlatform = this;
     }
@@ -66,7 +67,7 @@ export class Platform {
     }
 
     createTile(row, col) {
-        const texture = row === 0 ? "platform" : "tile" 
+        const texture = row === 0 ? "platform" : "tile"
         const tile = App.sprite(texture);
         this.container.addChild(tile);
         tile.x = col * tile.width;
@@ -77,7 +78,7 @@ export class Platform {
     // 06
     move() {
         if (this.body) {
-            Matter.Body.setPosition(this.body, {x: this.body.position.x + this.dx, y: this.body.position.y});
+            Matter.Body.setPosition(this.body, { x: this.body.position.x + this.dx, y: this.body.position.y });
             this.container.x = this.body.position.x - this.width / 2;
             this.container.y = this.body.position.y - this.height / 2;
         }

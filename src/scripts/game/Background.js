@@ -5,44 +5,46 @@ export class Background {
     constructor() {
         this.speed = App.config.bgSpeed;
         this.container = new PIXI.Container();
-        this.createSprites();
+        this.createSprite();
     }
 
-    createSprites() {
-        this.sprites = [];
+    // createSprites() {
+    //     this.sprites = [];
 
-        for (let i = 0; i < 3; i++) {
-            this.createSprite(i);
-        }
-    }
+    //     for (let i = 0; i < 1; i++) {
+    //         this.createSprite(i);
+    //     }
+    // }
 
-    createSprite(i) {
+    createSprite() {
         const sprite = App.sprite("bg");
 
-        sprite.x = sprite.width * i;
+        sprite.x = 0; // sprite.width * i;
         sprite.y = 0;
+        sprite.height = window.innerHeight;
+        sprite.width = window.innerWidth;
         this.container.addChild(sprite);
-        this.sprites.push(sprite);
+        // this.sprites.push(sprite);
     }
 
     move(sprite, offset) {
-        const spriteRightX = sprite.x + sprite.width;
+        // const spriteRightX = sprite.x + sprite.width;
 
-        const screenLeftX  = 0;
+        // const screenLeftX = 0;
 
-        if (spriteRightX <= screenLeftX) {
-            sprite.x += sprite.width * this.sprites.length;
-        }
-        
-        sprite.x -= offset;
+        // if (spriteRightX <= screenLeftX) {
+        //     sprite.x += sprite.width * this.sprites.length;
+        // }
+
+        // sprite.x -= offset;
     }
 
     update(dt) {
-        const offset = this.speed * dt;
+        // const offset = this.speed * dt;
 
-        this.sprites.forEach(sprite => {
-            this.move(sprite, offset);
-        });
+        // this.sprites.forEach(sprite => {
+        //     this.move(sprite, offset);
+        // });
     }
 
     destroy() {

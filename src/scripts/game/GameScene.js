@@ -5,6 +5,9 @@ import { Background } from "./Background";
 import { Scene } from '../system/Scene';
 import { Hero } from "./Hero";
 import { Platforms } from "./Platforms";
+import { Button } from './Button';
+
+import isMobile from 'ismobilejs';
 
 export class GameScene extends Scene {
 
@@ -20,6 +23,7 @@ export class GameScene extends Scene {
         this.createUI();
         // Add the 'keydown' event listener to our document
         document.addEventListener('keydown', this.onKeyDown.bind(this));
+        this.createButtons();
         //[/13]
     }
 
@@ -87,10 +91,10 @@ export class GameScene extends Scene {
         this.container.addChild(this.hero.sprite);
 
         this.container.interactive = true;
-        this.container.on("pointerdown", () => {
-            console.log('pointerdown')
-            // this.hero.startJump();
-        });
+        // this.container.on("pointerdown", () => {
+        //     console.log('pointerdown')
+        //     // this.hero.startJump();
+        // });
 
         // [14]
         this.hero.sprite.once("die", () => {
@@ -102,6 +106,14 @@ export class GameScene extends Scene {
     createBackground() {
         this.bg = new Background();
         this.container.addChild(this.bg.container);
+    }
+
+    createButtons() {
+        console.log(isMobile(window.navigator));
+        if (isMobile(window.navigator).any) {
+            this.buttons = new Button(this.hero);
+            this.container.addChild(this.buttons.container);
+        }
     }
 
     createPlatforms() {

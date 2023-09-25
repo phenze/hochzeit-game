@@ -9,8 +9,9 @@
   },
   "dependencies": {
     "gsap": "3.10.4",
-    "pixi.js": "6.5.1",
-    "matter-js": "0.18.0"
+    "ismobilejs": "^1.1.1",
+    "matter-js": "0.18.0",
+    "pixi.js": "6.5.1"
   },
   "devDependencies": {
     "babel-loader": "8.2.5",

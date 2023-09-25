@@ -3,6 +3,7 @@ import * as PIXI from "pixi.js";
 import { App } from '../system/App';
 // [10]
 import { Diamond } from './Diamond';
+import isMobile from 'ismobilejs';
 // [/10]
 
 export class Platform {
@@ -55,7 +56,12 @@ export class Platform {
     createContainer(x) {
         this.container = new PIXI.Container();
         this.container.x = x;
-        this.container.y = window.innerHeight - this.height;
+        if (isMobile(window.navigator).any) {
+            const spriteUp = App.sprite("button_up");
+            this.container.y = window.innerHeight - this.height - spriteUp.height;
+        } else {
+            this.container.y = window.innerHeight - this.height;
+        }
     }
 
     createTiles() {

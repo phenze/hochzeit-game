@@ -92,13 +92,14 @@ export class Hero {
 
     createSprite() {
         this.sprite = new PIXI.AnimatedSprite([
-            App.res("walk1"),
-            App.res("walk2")
+            App.res("dog"),
+            App.res("dog2"),
+            App.res("dog3")
         ]);
         this.sprite.x = App.config.hero.position.x;
         this.sprite.y = App.config.hero.position.y;
         this.sprite.loop = true;
-        this.sprite.animationSpeed = 0.2;
+        this.sprite.animationSpeed = 0.15;
         this.sprite.play();
     }
 

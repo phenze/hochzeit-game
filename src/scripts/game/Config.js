@@ -15,6 +15,20 @@ export const Config = {
             fill: ["#FF7F50"]
         }
     },
+    level: {
+        level1: 14,
+        level2: 9,
+        level3: 24,
+        x: 10,
+        y: 80,
+        anchor: 0,
+        style: {
+            fontFamily: "Verdana",
+            fontWeight: "bold",
+            fontSize: 44,
+            fill: ["#FF7F50"]
+        }
+    },
     diamonds: {
         chance: 0.4,
         offset: {
@@ -24,6 +38,8 @@ export const Config = {
     },
     platforms: {
         moveSpeed: -2.5,
+        moveSpeedLevel2: -3.5,
+        moveSpeedLevel3: -4.5,
         ranges: {
             rows: {
                 min: 2,
@@ -40,7 +56,7 @@ export const Config = {
         }
     },
     hero: {
-        jumpSpeed: 10,
+        jumpSpeed: 15,
         maxJumps: 2,
         position: {
             x: 350,

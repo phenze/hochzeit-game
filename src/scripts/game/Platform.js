@@ -1,9 +1,11 @@
 import * as Matter from 'matter-js';
 import * as PIXI from "pixi.js";
 import { App } from '../system/App';
+import { GameData } from './GameData';
 // [10]
 import { Diamond } from './Diamond';
 import isMobile from 'ismobilejs';
+
 // [/10]
 
 export class Platform {
@@ -30,11 +32,20 @@ export class Platform {
 
     // [10]
     createDiamonds() {
+        console.log(GameData.currentLevel)
         const y = App.config.diamonds.offset.min + Math.random() * (App.config.diamonds.offset.max - App.config.diamonds.offset.min);
 
         for (let i = 0; i < this.cols; i++) {
             // && this.diamonds.length === 0
-            if (Math.random() < App.config.diamonds.chance) {
+            this.maxDiamonds = 0;
+            if (GameData.currentLevel === 1) {
+                this.maxDiamonds = 3;
+            } else if (GameData.currentLevel === 2) {
+                this.maxDiamonds = 2;
+            } else if (GameData.currentLevel === 3) {
+                this.maxDiamonds = 1;
+            }
+            if (Math.random() < App.config.diamonds.chance && this.diamonds.length < this.maxDiamonds) {
                 this.createDiamond(this.tileSize * i, -y);
             }
         }
@@ -84,6 +95,13 @@ export class Platform {
 
     // 06
     move() {
+        this.dx = App.config.platforms.moveSpeed;
+        if (GameData.currentLevel === 2) {
+            this.dx = App.config.platforms.moveSpeedLevel2;
+        }
+        if (GameData.currentLevel === 3) {
+            this.dx = App.config.platforms.moveSpeedLevel3;
+        }
         if (this.body) {
             Matter.Body.setPosition(this.body, { x: this.body.position.x + this.dx, y: this.body.position.y });
             this.container.x = this.body.position.x - this.width / 2;

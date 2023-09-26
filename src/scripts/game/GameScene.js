@@ -1,5 +1,6 @@
 import * as Matter from 'matter-js';
 import { LabelScore } from "./LabelScore";
+import { LevelScore } from "./LevelScore";
 import { App } from '../system/App';
 import { Background } from "./Background";
 import { Scene } from '../system/Scene';
@@ -7,10 +8,11 @@ import { Hero } from "./Hero";
 import { Platforms } from "./Platforms";
 import { Button } from './Button';
 
+import { GameData } from './GameData';
+
 import isMobile from 'ismobilejs';
 
 export class GameScene extends Scene {
-
 
 
     create() {
@@ -58,7 +60,29 @@ export class GameScene extends Scene {
         this.labelScore = new LabelScore();
         this.container.addChild(this.labelScore);
         this.hero.sprite.on("score", () => {
+
+            if (GameData.currentLevel === 1 && this.hero.score === App.config.level.level1) {
+                GameData.currentLevel++;
+                this.hero.score = 0;
+                this.levelScore.renderLevel(GameData.currentLevel);
+            }
+            if (GameData.currentLevel === 2 && this.hero.score === App.config.level.level2) {
+                GameData.currentLevel++;
+                this.hero.score = 0;
+                this.levelScore.renderLevel(GameData.currentLevel);
+            }
+            if (GameData.currentLevel === 3 && this.hero.score === App.config.level.level3) {
+                // TODO : WIN!!
+                GameData.gameFinished = true;
+                this.platfroms.stopMovement();
+            }
             this.labelScore.renderScore(this.hero.score);
+        });
+
+        this.levelScore = new LevelScore();
+        this.container.addChild(this.levelScore);
+        this.hero.sprite.on("levelUp", () => {
+
         });
     }
     //[13]
@@ -98,6 +122,8 @@ export class GameScene extends Scene {
 
         // [14]
         this.hero.sprite.once("die", () => {
+            GameData.gameFinished = false;
+            GameData.currentLevel = 1;
             App.scenes.start("Game");
         });
         // [/14]

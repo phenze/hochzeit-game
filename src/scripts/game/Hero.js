@@ -41,7 +41,7 @@ export class Hero {
         //     return;
         // }
 
-        const finalV = v * 10;
+        const finalV = v * 12;
         Matter.Body.setVelocity(this.body, { x: this.body.velocity.x, y: finalV });
     }
 

@@ -1,6 +1,7 @@
 import * as PIXI from "pixi.js";
 import { App } from "../system/App";
 import { Platform } from "./Platform";
+import { GameData } from "./GameData";
 
 export class Platforms {
 
@@ -34,9 +35,6 @@ export class Platforms {
 
     createPlatform(data, withDiamonds) {
         const platform = new Platform(data.rows, data.cols, data.x, withDiamonds);
-        if (this.movementStarted) {
-            platform.dx = App.config.platforms.moveSpeed;
-        }
         this.container.addChild(platform.container);
         this.platforms.push(platform);
         this.current = platform;
@@ -47,13 +45,22 @@ export class Platforms {
         this.movementStarted = true
     }
 
+    stopMovement() {
+        this.platforms.forEach(platform => platform.dx = 0);
+        // this.movementStarted = false
+    }
+
     update() {
         if (this.current.container.x + this.current.container.width < window.innerWidth) {
             this.createPlatform(this.randomData, true);
         }
 
         // 06
-        this.platforms.forEach(platform => platform.move());
+        this.platforms.forEach(platform => {
+            if (this.movementStarted && !GameData.gameFinished) {
+                platform.move()
+            }
+        });
     }
 
     // [14]

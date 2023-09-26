@@ -15,7 +15,7 @@ class Application {
         this.app = new PIXI.Application({ resizeTo: window });
         document.body.appendChild(this.app.view);
 
-        this.loader = new Loader(this.app.loader, this.config);
+        this.loader = new Loader(this.config);
         this.loader.preload().then(() => this.start());
 
         this.scenes = new ScenesManager();
@@ -34,7 +34,7 @@ class Application {
     // [/06]
 
     res(key) {
-        return this.loader.resources[key].texture;
+        return this.loader.resources[key];
     }
 
     sprite(key) {
@@ -42,7 +42,6 @@ class Application {
     }
 
     start() {
-        console.log('start')
         this.scenes.start("Game");
     }
 }

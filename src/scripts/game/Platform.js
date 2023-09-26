@@ -15,7 +15,7 @@ export class Platform {
         this.rows = rows;
         this.cols = cols;
 
-        this.tileSize = PIXI.Texture.from("tile").width;
+        this.tileSize = App.sprite("tile").width;
         this.width = this.tileSize * this.cols;
         this.height = this.tileSize * this.rows;
 
@@ -33,7 +33,8 @@ export class Platform {
         const y = App.config.diamonds.offset.min + Math.random() * (App.config.diamonds.offset.max - App.config.diamonds.offset.min);
 
         for (let i = 0; i < this.cols; i++) {
-            if (Math.random() < App.config.diamonds.chance && this.diamonds.length === 0) {
+            // && this.diamonds.length === 0
+            if (Math.random() < App.config.diamonds.chance) {
                 this.createDiamond(this.tileSize * i, -y);
             }
         }

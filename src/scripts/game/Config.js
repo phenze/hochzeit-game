@@ -37,7 +37,7 @@ export const Config = {
             fontFamily: "Verdana",
             fontWeight: "bold",
             fontSize: 44,
-            fill: ["#5d5a5a"]
+            fill: ["#5d5a5a"],
         }
     },
     diamonds: {

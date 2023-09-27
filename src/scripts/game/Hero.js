@@ -27,7 +27,7 @@ export class Hero {
     //[/12]
 
     startJump() {
-        if (this.platform || this.jumpIndex === 0) {
+        if (this.platform || this.jumpIndex === 1) {
             ++this.jumpIndex;
             this.platform = null;
             this.jump()
@@ -37,10 +37,6 @@ export class Hero {
 
     jump(v = -1.0) {
         const vy = this.body.velocity.y;
-        // if (Math.abs(vy) > 0.01) {
-        //     return;
-        // }
-
         const finalV = v * 12;
         Matter.Body.setVelocity(this.body, { x: this.body.velocity.x, y: finalV });
     }

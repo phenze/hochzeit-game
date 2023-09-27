@@ -21,14 +21,13 @@ export class Button {
 
         spriteUp.interactive = true;
         spriteUp.on("pointerdown", (event) => {
-            console.log('up')
             this.hero.startJump()
         });
 
         const spriteLeft = App.sprite("button_left");
 
         spriteLeft.x = 0; // sprite.width * i;
-        spriteLeft.y = window.innerHeight - spriteUp.height;
+        spriteLeft.y = window.innerHeight - spriteLeft.height;
         spriteLeft.cursor = 'pointer';
         // sprite.height = window.innerHeight;
         spriteLeft.width = window.innerWidth / 3.0;

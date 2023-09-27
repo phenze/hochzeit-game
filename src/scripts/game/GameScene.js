@@ -17,7 +17,6 @@ export class GameScene extends Scene {
 
 
     create() {
-        console.log('create GameScene')
         this.createBackground();
         this.createHero();
         this.createPlatforms();

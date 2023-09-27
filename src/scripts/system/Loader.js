@@ -12,8 +12,6 @@ export class Loader {
             let key = asset.key.substr(asset.key.lastIndexOf('/') + 1);
             key = key.substring(0, key.indexOf('.'));
             if (asset.key.indexOf(".png") !== -1 || asset.key.indexOf(".jpg") !== -1) {
-                console.log(key)
-                console.log(asset.data.default)
                 const texture = await Assets.load(asset.data.default);
                 this.resources[key] = texture
             }

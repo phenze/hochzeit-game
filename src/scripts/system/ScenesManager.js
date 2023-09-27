@@ -9,7 +9,6 @@ export class ScenesManager {
     }
 
     start(scene) {
-        console.log('start Scene', console.trace())
         if (this.scene) {
             this.scene.destroy();
         }

@@ -32,7 +32,6 @@ export class Platform {
 
     // [10]
     createDiamonds() {
-        console.log(GameData.currentLevel)
         const y = App.config.diamonds.offset.min + Math.random() * (App.config.diamonds.offset.max - App.config.diamonds.offset.min);
 
         for (let i = 0; i < this.cols; i++) {

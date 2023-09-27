@@ -1,7 +1,7 @@
 class GameDataInternal {
 
     currentLevel = 1;
-    gameFinished = true;
+    gameFinished = false;
     constructor() {
 
     }

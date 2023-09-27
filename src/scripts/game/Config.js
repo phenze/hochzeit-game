@@ -11,7 +11,7 @@ export const Config = {
         style: {
             fontFamily: "Verdana",
             fontWeight: "bold",
-            fontSize: 44,
+            fontSize: 30,
             fill: ["#FF7F50"]
         }
     },
@@ -20,13 +20,24 @@ export const Config = {
         level2: 9,
         level3: 24,
         x: 10,
-        y: 80,
+        y: 50,
+        anchor: 0,
+        style: {
+            fontFamily: "Verdana",
+            fontWeight: "bold",
+            fontSize: 30,
+            fill: ["#FF7F50"]
+        }
+    },
+    hochzeit: {
+        x: 10,
+        y: 100,
         anchor: 0,
         style: {
             fontFamily: "Verdana",
             fontWeight: "bold",
             fontSize: 44,
-            fill: ["#FF7F50"]
+            fill: ["#5d5a5a"]
         }
     },
     diamonds: {

@@ -1,6 +1,7 @@
 import * as Matter from 'matter-js';
 import { LabelScore } from "./LabelScore";
 import { LevelScore } from "./LevelScore";
+import { HochzeitScore } from "./HochzeitScore";
 import { App } from '../system/App';
 import { Background } from "./Background";
 import { Scene } from '../system/Scene';
@@ -73,6 +74,7 @@ export class GameScene extends Scene {
             }
             if (GameData.currentLevel === 3 && this.hero.score === App.config.level.level3) {
                 // TODO : WIN!!
+                GameData.currentLevel++;
                 GameData.gameFinished = true;
                 this.platfroms.stopMovement();
             }
@@ -81,9 +83,9 @@ export class GameScene extends Scene {
 
         this.levelScore = new LevelScore();
         this.container.addChild(this.levelScore);
-        this.hero.sprite.on("levelUp", () => {
 
-        });
+        this.hochzeitScore = new HochzeitScore();
+        this.container.addChild(this.hochzeitScore);
     }
     //[13]
 
@@ -122,9 +124,11 @@ export class GameScene extends Scene {
 
         // [14]
         this.hero.sprite.once("die", () => {
-            GameData.gameFinished = false;
-            GameData.currentLevel = 1;
-            App.scenes.start("Game");
+            if (!GameData.gameFinished) {
+                GameData.gameFinished = false;
+                GameData.currentLevel = 1;
+                App.scenes.start("Game");
+            }
         });
         // [/14]
     }
@@ -135,7 +139,6 @@ export class GameScene extends Scene {
     }
 
     createButtons() {
-        console.log(isMobile(window.navigator));
         if (isMobile(window.navigator).any) {
             this.buttons = new Button(this.hero);
             this.container.addChild(this.buttons.container);
@@ -150,6 +153,7 @@ export class GameScene extends Scene {
     update(dt) {
         this.bg.update(dt);
         this.platfroms.update(dt);
+        this.hochzeitScore.update()
     }
 
     destroy() {
@@ -159,5 +163,7 @@ export class GameScene extends Scene {
         this.hero.destroy();
         this.platfroms.destroy();
         this.labelScore.destroy();
+        this.levelScore.destroy();
+        this.hochzeitScore.destroy();
     }
 }

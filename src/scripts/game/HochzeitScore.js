@@ -76,8 +76,9 @@ export class HochzeitScore extends PIXI.Container {
         } else if (GameData.currentLevel === 3) {
             this.dateText.text = '14.09.'
         } else if (GameData.currentLevel === 4) {
-            this.setFinishedYValues();
             this.dateText.text = '14.09.2024'
+        } else if (GameData.currentLevel === 5) {
+            this.setFinishedYValues();
             this.saveTheDateText.visible = true;
             this.willMarryText.visible = true;
             this.ourNameText.visible = true;

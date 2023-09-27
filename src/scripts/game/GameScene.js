@@ -72,7 +72,13 @@ export class GameScene extends Scene {
                 this.levelScore.renderLevel(GameData.currentLevel);
             }
             if (GameData.currentLevel === 3 && this.hero.score === App.config.level.level3) {
-                // TODO : WIN!!
+                this.platfroms.destroyAllDiamonds();
+                GameData.currentLevel++;
+                this.hero.score = 0;
+                this.levelScore.renderLevel(GameData.currentLevel);
+
+            }
+            if (GameData.currentLevel === 4 && this.hero.score === 2) {
                 GameData.currentLevel++;
                 GameData.gameFinished = true;
                 this.platfroms.stopMovement();

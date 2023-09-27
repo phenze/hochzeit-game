@@ -5,6 +5,7 @@ import { GameData } from './GameData';
 // [10]
 import { Diamond } from './Diamond';
 import isMobile from 'ismobilejs';
+import { Ring } from './Ring';
 
 // [/10]
 
@@ -41,7 +42,7 @@ export class Platform {
                 this.maxDiamonds = 3;
             } else if (GameData.currentLevel === 2) {
                 this.maxDiamonds = 2;
-            } else if (GameData.currentLevel === 3) {
+            } else if (GameData.currentLevel === 3 || GameData.currentLevel === 4) {
                 this.maxDiamonds = 1;
             }
             if (Math.random() < App.config.diamonds.chance && this.diamonds.length < this.maxDiamonds) {
@@ -50,11 +51,20 @@ export class Platform {
         }
     }
 
+    destroyAllDiamonds() {
+        this.diamonds.forEach(diamond => diamond.destroy());
+    }
+
     createDiamond(x, y) {
-        const diamond = new Diamond(x, y);
-        this.container.addChild(diamond.sprite);
-        diamond.createBody();
-        this.diamonds.push(diamond);
+        var tmp;
+        if (GameData.currentLevel === 4) {
+            tmp = new Ring(x, y);
+        } else {
+            tmp = new Diamond(x, y);
+        }
+        this.container.addChild(tmp.sprite);
+        tmp.createBody();
+        this.diamonds.push(tmp);
     }
     // [/10]
 
@@ -98,7 +108,7 @@ export class Platform {
         if (GameData.currentLevel === 2) {
             this.dx = App.config.platforms.moveSpeedLevel2;
         }
-        if (GameData.currentLevel === 3) {
+        if (GameData.currentLevel === 3 || GameData.currentLevel === 4) {
             this.dx = App.config.platforms.moveSpeedLevel3;
         }
         if (this.body) {

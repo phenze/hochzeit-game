@@ -32,6 +32,12 @@ export class Platforms {
         return data;
     }
 
+    destroyAllDiamonds() {
+        this.platforms.forEach(platform => {
+            platform.destroyAllDiamonds();
+        });
+    }
+
 
     createPlatform(data, withDiamonds) {
         const platform = new Platform(data.rows, data.cols, data.x, withDiamonds);

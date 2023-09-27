@@ -63,13 +63,13 @@ export class Hero {
     // [/08]
 
     createBody() {
-        this.body = Matter.Bodies.rectangle(this.sprite.x + this.sprite.width / 2, this.sprite.y + this.sprite.height / 2, this.sprite.width, this.sprite.height);
-        this.body.friction = 0.08;
+        // dont rotate the body
+        const options = {
+            inertia: Infinity,
+        }
+        this.body = Matter.Bodies.rectangle(this.sprite.x + this.sprite.width / 2, this.sprite.y + this.sprite.height / 2, this.sprite.width * 0.8, this.sprite.height, options);
         this.body.restitution = 0;
-        // var mass = 1000;
-        // this.body.mass = mass;
-        // this.body.inverseMass = 1 / mass;
-        // this.body.frictionAir = 0.05;
+
         Matter.World.add(App.physics.world, this.body);
         this.body.gameHero = this;
     }
@@ -92,6 +92,7 @@ export class Hero {
             App.res("dog2"),
             App.res("dog3")
         ]);
+
         this.sprite.x = App.config.hero.position.x;
         this.sprite.y = App.config.hero.position.y;
         this.sprite.loop = true;

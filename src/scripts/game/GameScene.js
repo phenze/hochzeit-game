@@ -79,6 +79,7 @@ export class GameScene extends Scene {
 
             }
             if (GameData.currentLevel === 4 && this.hero.score === 2) {
+                this.platfroms.destroyAllDiamonds();
                 GameData.currentLevel++;
                 GameData.gameFinished = true;
                 this.platfroms.stopMovement();

@@ -29,6 +29,12 @@ class Application {
     createPhysics() {
         this.physics = Matter.Engine.create();
         const runner = Matter.Runner.create();
+        // var render = Matter.Render.create({
+        //     element: document.body,
+        //     engine: this.physics,
+        //     options: {}
+        // });
+        // Matter.Render.run(render);
         Matter.Runner.run(runner, this.physics);
     }
     // [/06]

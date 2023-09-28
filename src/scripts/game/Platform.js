@@ -41,9 +41,9 @@ export class Platform {
             if (GameData.currentLevel === 1) {
                 this.maxDiamonds = 3;
             } else if (GameData.currentLevel === 2) {
-                this.maxDiamonds = 2;
-            } else if (GameData.currentLevel === 3 || GameData.currentLevel === 4) {
                 this.maxDiamonds = 1;
+            } else if (GameData.currentLevel === 3 || GameData.currentLevel === 4) {
+                this.maxDiamonds = 3;
             }
             if (Math.random() < App.config.diamonds.chance && this.diamonds.length < this.maxDiamonds) {
                 this.createDiamond(this.tileSize * i, -y);

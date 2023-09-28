@@ -27,6 +27,27 @@ export class GameScene extends Scene {
         document.addEventListener('keydown', this.onKeyDown.bind(this));
         this.createButtons();
         //[/13]
+
+        this.preventLongPressMenu(document.getElementsByTagName('canvas'));
+    }
+
+    absorbEvent_(event) {
+        var e = event || window.event;
+        e.preventDefault && e.preventDefault();
+        e.stopPropagation && e.stopPropagation();
+        e.cancelBubble = true;
+        e.returnValue = false;
+        return false;
+    }
+
+    preventLongPressMenu(nodes) {
+        console.log(nodes)
+        for (var i = 0; i < nodes.length; i++) {
+            nodes[i].ontouchstart = this.absorbEvent_;
+            nodes[i].ontouchmove = this.absorbEvent_;
+            nodes[i].ontouchend = this.absorbEvent_;
+            nodes[i].ontouchcancel = this.absorbEvent_;
+        }
     }
 
     onKeyDown(key) {

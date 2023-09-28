@@ -4,6 +4,8 @@ import { App } from "../system/App";
 import { TextMetrics } from 'pixi.js';
 import { GameData } from "./GameData";
 
+import anime from 'animejs/lib/anime.es.js';
+
 export class HochzeitScore extends PIXI.Container {
     constructor() {
         super();
@@ -51,6 +53,9 @@ export class HochzeitScore extends PIXI.Container {
         this.saveTheDateText.style = App.config.hochzeit.style;
         this.saveTheDateText.visible = false;
         this.addChild(this.saveTheDateText)
+
+        this.animationDone = false;
+        this.lastLevel = 0;
     }
 
     centerText(pixiTextObject) {
@@ -70,13 +75,56 @@ export class HochzeitScore extends PIXI.Container {
         this.saveTheDateText.y = currentY;
     }
 
+    animateLevel2() {
+        if (!this.animationDone) {
+            var finalX = this.x;
+            var finalY = this.y;
+            this.x = 0;
+            this.y = 0;
+            anime({
+                targets: this,
+                x: finalX,
+                y: finalY,
+                easing: 'spring(1, 80, 5, 0)',
+                round: 1,
+                duration: 250,
+                update: function () {
+
+                }
+            });
+            this.animationDone = true;
+        }
+    }
+
     update() {
-        if (GameData.currentLevel === 2) {
-            this.dateText.text = '14.'
+        if (GameData.currentLevel === 1) {
+            if (this.lastLevel !== 1) {
+                this.animationDone = false;
+                this.animateLevel2()
+                this.lastLevel = 1
+                this.dateText.text = 'Mehr Leckerlies!!'
+            }
+        } else if (GameData.currentLevel === 2) {
+            if (this.lastLevel !== 2) {
+                this.animationDone = false;
+                this.animateLevel2()
+                this.lastLevel = 2
+                this.dateText.text = '14.'
+            }
         } else if (GameData.currentLevel === 3) {
-            this.dateText.text = '14.09.'
+            if (this.lastLevel !== 3) {
+                this.animationDone = false;
+                this.animateLevel2()
+                this.lastLevel = 3
+                this.dateText.text = '14.09.'
+            }
         } else if (GameData.currentLevel === 4) {
-            this.dateText.text = '14.09.2024'
+            if (this.lastLevel !== 4) {
+                this.animationDone = false;
+                this.animateLevel2()
+                this.lastLevel = 4
+                this.dateText.text = '14.09.2024'
+            }
         } else if (GameData.currentLevel === 5) {
             this.setFinishedYValues();
             this.saveTheDateText.visible = true;

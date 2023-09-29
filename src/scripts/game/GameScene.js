@@ -2,6 +2,7 @@ import * as Matter from 'matter-js';
 import { LabelScore } from "./LabelScore";
 import { LevelScore } from "./LevelScore";
 import { HochzeitScore } from "./HochzeitScore";
+import { LeckerliBarometer } from "./LeckerliBarometer";
 import { App } from '../system/App';
 import { Background } from "./Background";
 import { Scene } from '../system/Scene';
@@ -78,10 +79,14 @@ export class GameScene extends Scene {
     }
     //[13]
     createUI() {
+        this.leckerliBarometer = new LeckerliBarometer()
+        this.container.addChild(this.leckerliBarometer);
+
         this.labelScore = new LabelScore();
         this.container.addChild(this.labelScore);
         this.hero.sprite.on("score", () => {
-
+            GameData.currentScore++;
+            this.leckerliBarometer.updatePercent(GameData.currentScore / GameData.finishedScore)
             if (GameData.currentLevel === 1 && this.hero.score === App.config.level.level1) {
                 GameData.currentLevel++;
                 this.hero.score = 0;
@@ -154,6 +159,7 @@ export class GameScene extends Scene {
             if (!GameData.gameFinished) {
                 GameData.gameFinished = false;
                 GameData.currentLevel = 1;
+                GameData.currentScore = 0;
                 App.scenes.start("Game");
             }
         });
@@ -181,6 +187,7 @@ export class GameScene extends Scene {
         this.bg.update(dt);
         this.platfroms.update(dt);
         this.hochzeitScore.update()
+        this.leckerliBarometer.update(this.levelScore);
     }
 
     destroy() {

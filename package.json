@@ -8,6 +8,7 @@
     "start": "webpack-dev-server --config webpack/base.js --open"
   },
   "dependencies": {
+    "@pixi/ui": "^0.9.0",
     "animejs": "^3.2.1",
     "gsap": "3.12.2",
     "ismobilejs": "1.1.1",

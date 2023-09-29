@@ -102,7 +102,7 @@ export class HochzeitScore extends PIXI.Container {
                 this.animationDone = false;
                 this.animateLevel2()
                 this.lastLevel = 1
-                this.dateText.text = 'Mehr Leckerlies!!'
+                this.dateText.text = ''
             }
         } else if (GameData.currentLevel === 2) {
             if (this.lastLevel !== 2) {
